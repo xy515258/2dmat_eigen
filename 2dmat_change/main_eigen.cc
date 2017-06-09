@@ -1276,7 +1276,7 @@ void calc_inhom_eps00(double *** inhom_eps00, double *** inhom_eps00_1, double *
        for (int nn=0; nn<2; nn++)
        for (int ss=0; ss<2; ss++)
        for (int tt=0; tt<2; tt++) 
-          inhom_eps00_3[ii][jj][ndx] += (-1)*lam[ii][jj][kk][ll]*delta_S[kk][ll][mm][nn][ndx]*lam[mm][nn][ss][tt]*eps00[ss][tt][ndx];
+          inhom_eps00_3[ii][jj][ndx] += (1)*lam[ii][jj][kk][ll]*delta_S[kk][ll][mm][nn][ndx]*lam[mm][nn][ss][tt]*eps00[ss][tt][ndx];
            
        for (int kk=0; kk<2; kk++)
        for (int ll=0; ll<2; ll++)
@@ -1285,7 +1285,7 @@ void calc_inhom_eps00(double *** inhom_eps00, double *** inhom_eps00_1, double *
        for (int ss=0; ss<2; ss++)
        for (int tt=0; tt<2; tt++) 
        for (int pp=0; pp<3; pp++)
-            inhom_eps00_4[ii][jj][ndx] += (1)*lam[ii][jj][kk][ll]*delta_S[kk][ll][mm][nn][ndx]*lam[mm][nn][ss][tt]*eps0[pp][ss][tt][ndx]*eta[pp][ndx]*eta[pp][ndx];
+            inhom_eps00_4[ii][jj][ndx] += (-1)*lam[ii][jj][kk][ll]*delta_S[kk][ll][mm][nn][ndx]*lam[mm][nn][ss][tt]*eps0[pp][ss][tt][ndx]*eta[pp][ndx]*eta[pp][ndx];
        
        inhom_eps00[ii][jj][ndx] = inhom_eps00_1[ii][jj][ndx] + inhom_eps00_2[ii][jj][ndx] + inhom_eps00_3[ii][jj][ndx] + inhom_eps00_4[ii][jj][ndx];
 }
@@ -1677,12 +1677,12 @@ int main(int argc, char ** argv)
 
     // initialize the system with in-plane heterogeneity
 
-    initialize_phi_1(phi,local_n0,N1);
+    //initialize_phi_0(phi,local_n0,N1);
     //initialize_lsf_circle(lsf, local_n0, local_0_start, N1);
-    //initialize_lsf_stripe(lsf, local_n0, local_0_start, N1);
+    initialize_lsf_stripe(lsf, local_n0, local_0_start, N1);
     //initialize_lsf_zigzag(lsf, local_n0, local_0_start, N1);
-    //diffuse_lsf(lsf, local_n0, N1);
-    //copy_lsf(lsf, phi, local_n0, N1);
+    diffuse_lsf(lsf, local_n0, N1);
+    copy_lsf(lsf, phi, local_n0, N1);
 
     for (int p=0; p<3; p++)
     for (int i=0; i<2; i++)

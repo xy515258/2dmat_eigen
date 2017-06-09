@@ -24,7 +24,7 @@ void initialize_phi_0(double * phi, ptrdiff_t local_n0, ptrdiff_t N1)
     for (int j=0; j<N1; j++)
     {
         int ndx = i*2*(N1/2+1) + j;
-        phi[ndx] = 0;
+        phi[ndx] = 0.05;
     }
 }
 
@@ -64,8 +64,8 @@ void initialize_lsf_circle(double * lsf, ptrdiff_t local_n0, ptrdiff_t local_0_s
         double ry = j - N1 / 2.0;
         double rr = sqrt(rx*rx + ry*ry);
 
-        lsf[ndx] = -1;
-        if (rr<25) lsf[ndx] = 1;
+        lsf[ndx] = 1;
+        if (rr<50) lsf[ndx] = -1;
     }
 }
 
@@ -116,6 +116,10 @@ void copy_lsf(double * lsf, double * phi, ptrdiff_t local_n0, ptrdiff_t N1)
     {
         int ndx_lsf = i*N1 + j;
         int ndx_phi = i*N1r + j;
-        phi[ndx_phi] = lsf[ndx_lsf];
+      if(lsf[ndx_lsf] <= 0.05)
+       phi[ndx_phi] = 0.05;
+      else 
+       phi[ndx_phi] = lsf[ndx_lsf];
+      
     }
 }
